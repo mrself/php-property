@@ -204,4 +204,9 @@ class Property
         }
         return substr($path, 0, strlen('value:')) === 'value:';
     }
+
+    public static function make()
+    {
+        return new static();
+    }
 }
