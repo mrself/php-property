@@ -23,6 +23,7 @@ class Property
      * @throws InvalidSourceException
      * @throws NonValuePathException
      * @throws NonexistentKeyException
+     * @throws EmptyPathException
      */
     public function get($source, $path)
     {
@@ -30,6 +31,9 @@ class Property
             return $this->parseValuePath($path);
         }
         $path = $this->pathToArray($path);
+        if (!$path[0]) {
+            throw new EmptyPathException();
+        }
         $originalPath = $path;
         while (null !== ($key = array_shift($path))) {
             if (is_object($source)) {
@@ -41,6 +45,89 @@ class Property
             }
         }
         return $source;
+    }
+
+    /**
+     * @deprecated Not used. Is here because it may be useful later
+     * @param $source
+     * @param $path
+     * @return mixed
+     * @throws EmptyPathException
+     * @throws InvalidSourceException
+     * @throws NonValuePathException
+     * @throws NonexistentKeyException
+     */
+    protected function getPreLast($source, $path)
+    {
+        $path = $this->pathToArray($path);
+        if (!$path[0]) {
+            throw new EmptyPathException();
+        }
+        $path = array_slice($path, 0, -1);
+        if (empty($path)) {
+            return $source;
+        }
+        return $this->get($source, $path);
+    }
+
+    /**
+     * @param $target
+     * @param $path
+     * @param $value
+     * @throws EmptyPathException
+     * @throws InvalidTargetException
+     */
+    public function set(&$target, $path, $value)
+    {
+        $path = $this->pathToArray($path);
+        if (!$path[0]) {
+            throw new EmptyPathException();
+        }
+        $originalPath = $path;
+        $key = array_pop($path);
+        if (count($originalPath) > 1) {
+            foreach ($path as $name) {
+                if (is_object($target)) {
+                    $target = &$target->$name;
+                } elseif (is_array($target)) {
+                    $target = &$target[$name];
+                }
+            }
+            $this->set($target, $key, $value);
+        } else {
+            try {
+                $this->setByKey($target, $key, $value);
+            } catch (InvalidTargetException $e) {
+                throw new InvalidTargetException($target, $originalPath, $e);
+            }
+        }
+    }
+
+    /**
+     * @param $target
+     * @param $key
+     * @param $value
+     * @throws InvalidTargetException
+     */
+    public function setByKey(&$target, $key, $value)
+    {
+        if (is_object($target)) {
+            $this->objectSet($target, $key, $value);
+        } elseif (is_array($target)) {
+            $target[$key] = $value;
+        } else {
+            throw new InvalidTargetException($target);
+        }
+    }
+
+    protected function objectSet($object, $key, $value)
+    {
+        $method = 'set' . $this->inflector->camelize($key);
+        if (method_exists($object, $method)) {
+            $object->$method($value);
+        } else {
+            $object->$key = $value;
+        }
     }
 
     protected function pathToArray($path)

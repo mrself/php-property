@@ -2,25 +2,44 @@
 
 namespace Mrself\Property\Tests;
 
-use ICanBoogie\Inflector;
+use Mrself\Property\EmptyPathException;
 use Mrself\Property\InvalidSourceException;
 use Mrself\Property\NonexistentKeyException;
 use Mrself\Property\NonValuePathException;
-use Mrself\Property\Property;
 use PHPUnit\Framework\TestCase;
 
 class GetTest extends TestCase
 {
-    /**
-     * @var Property
-     */
-    protected $property;
+    use TestTrait;
+
+    public function testGetReturnsValueFromArrayInObject()
+    {
+        $object = (object) ['a' => ['b' => 1]];
+        $actual = $this->property->get($object, 'a.b');
+        $this->assertEquals(1, $actual);
+    }
+
+    public function testGetReturnsValueFromObjectInArray()
+    {
+        $object = ['a' => (object) ['b' => 1]];
+        $actual = $this->property->get($object, 'a.b');
+        $this->assertEquals(1, $actual);
+    }
 
     public function testGetReturnsValueFromObjectBySinglePath()
     {
         $object = (object) ['a' => 1];
         $actual = $this->property->get($object, 'a');
         $this->assertEquals(1, $actual);
+    }
+
+    public function testGetThrowsExceptionIfPathIsEmpty()
+    {
+        $object = (object) ['a' => 1];
+        $this->_assertHasException([
+            '_class' => EmptyPathException::class,
+            '_callable' => [$this->property, 'get', $object, '']
+        ]);
     }
 
     public function testGetReturnsValueFromObjectByMultiplePath()
@@ -152,32 +171,5 @@ class GetTest extends TestCase
             '_class' => NonValuePathException::class,
             '_callable' => [$this->property, 'parseValuePath', 'notValuePath']
         ]);
-    }
-
-    protected function setUp()
-    {
-        parent::setUp();
-        $this->property = new Property();
-    }
-
-    protected function _assertHasException(array $props)
-    {
-        $inflector = Inflector::get();
-        $class = $props['_class'];
-        unset($props['_class']);
-        $cbParams = $props['_callable'];
-        unset($props['_callable']);
-        try {
-            $args = array_slice($cbParams, 2);
-            call_user_func_array([$cbParams[0], $cbParams[1]], $args);
-        } catch (\Exception $e) {
-            $this->assertInstanceOf($class, $e);
-            foreach ($props as $key => $value) {
-                $method = 'get' . $inflector->camelize($key);
-                $this->assertEquals($value, $e->$method());
-            }
-            return;
-        }
-        $this->assertTrue(false);
     }
 }
