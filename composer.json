@@ -1,5 +1,5 @@
 {
-  "name": "mrself/util",
+  "name": "mrself/property",
   "autoload": {
     "psr-4": {
       "Mrself\\Property\\": "src/"
