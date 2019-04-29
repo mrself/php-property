@@ -172,4 +172,18 @@ class GetTest extends TestCase
             '_callable' => [$this->property, 'parseValuePath', 'notValuePath']
         ]);
     }
+
+    public function testGetterIsCalledFirst()
+    {
+        $source = new class {
+            protected $field;
+
+            public function getField()
+            {
+                return 'value';
+            }
+        };
+        $value = $this->property->get($source, 'field');
+        $this->assertEquals('value', $value);
+    }
 }

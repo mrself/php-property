@@ -147,9 +147,6 @@ class Property
      */
     public function objectGet($object, $key)
     {
-        if (property_exists($object, $key)) {
-            return $object->$key;
-        }
         $method = 'get'. $this->inflector->camelize($key);
         if (method_exists($object, $method)) {
             return $object->$method();
