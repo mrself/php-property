@@ -4,6 +4,7 @@ namespace Mrself\Property\Tests;
 
 use Mrself\Property\EmptyPathException;
 use Mrself\Property\InvalidSourceException;
+use Mrself\Property\NonAccessiblePropertyException;
 use Mrself\Property\NonexistentKeyException;
 use Mrself\Property\NonValuePathException;
 use PHPUnit\Framework\TestCase;
@@ -25,6 +26,10 @@ class GetTest extends TestCase
         $actual = $this->property->get($object, 'a.b');
         $this->assertEquals(1, $actual);
     }
+
+    /*
+     * Start object properties
+     */
 
     public function testGetReturnsValueFromObjectBySinglePath()
     {
@@ -92,6 +97,21 @@ class GetTest extends TestCase
             '_callable' => [$this->property, 'get', $object, 'b']
         ]);
     }
+
+    public function testGetThrownExceptionIfPropertyIsNonAccessible()
+    {
+        $object = new class {
+            protected $b;
+        };
+        $this->_assertHasException([
+            '_class' => NonAccessiblePropertyException::class,
+            '_callable' => [$this->property, 'get', $object, 'b']
+        ]);
+    }
+
+    /*
+     * End object properties
+     */
 
     public function testGetReturnsValueFromArrayBySinglePath()
     {

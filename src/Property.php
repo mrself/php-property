@@ -48,6 +48,23 @@ class Property
     }
 
     /**
+     * Check if value can be accessed
+     *
+     * @param $source
+     * @param $path
+     * @return bool
+     */
+    public function canGet($source, $path)
+    {
+        try {
+            $this->get($source, $path);
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
+    /**
      * @deprecated Not used. Is here because it may be useful later
      * @param $source
      * @param $path
@@ -151,14 +168,23 @@ class Property
         if (method_exists($object, $method)) {
             return $object->$method();
         }
-        try {
-            return $object->$key;
-        } catch (\Exception $e) {
-            if (strpos($e->getMessage(), 'Undefined property') !== false) {
-                throw new NonexistentKeyException($object, $key, 'object');
-            }
-            throw $e;
+
+        if (!property_exists($object, $key)) {
+            throw new NonexistentKeyException($object, $key, 'object');
         }
+
+        if (!$this->isPropertyPublic($object, $key)) {
+            throw new NonAccessiblePropertyException($object, $key);
+        }
+
+        return $object->$key;
+    }
+
+    protected function isPropertyPublic($object, string $key)
+    {
+        $reflectionObject = new \ReflectionObject($object);
+        $reflectionProperty = $reflectionObject->getProperty($key);
+        return $reflectionProperty->isPublic();
     }
 
     /**
