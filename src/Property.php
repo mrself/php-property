@@ -169,15 +169,18 @@ class Property
             return $object->$method();
         }
 
-        if (!property_exists($object, $key)) {
-            throw new NonexistentKeyException($object, $key, 'object');
-        }
-
-        if (!$this->isPropertyPublic($object, $key)) {
+        if (property_exists($object, $key) && !$this->isPropertyPublic($object, $key)) {
             throw new NonAccessiblePropertyException($object, $key);
         }
 
-        return $object->$key;
+        try {
+            return $object->$key;
+        } catch (\Exception $e) {
+            if (strpos($e->getMessage(), 'Undefined property') !== false) {
+                throw new NonexistentKeyException($object, $key, 'object');
+            }
+            throw $e;
+        }
     }
 
     protected function isPropertyPublic($object, string $key)

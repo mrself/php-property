@@ -206,4 +206,19 @@ class GetTest extends TestCase
         $value = $this->property->get($source, 'field');
         $this->assertEquals('value', $value);
     }
+
+    public function testMagicGetCanBeUsed()
+    {
+        $source = new class {
+            public function __get($name)
+            {
+                if ($name === 'field') {
+                    return 'value';
+                }
+                return false;
+            }
+        };
+        $value = $this->property->get($source, 'field');
+        $this->assertEquals('value', $value);
+    }
 }
