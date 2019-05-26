@@ -15,7 +15,7 @@ trait TestTrait
     protected function setUp()
     {
         parent::setUp();
-        $this->property = new Property();
+        $this->property = Property::make();
     }
 
     protected function _assertHasException(array $props)

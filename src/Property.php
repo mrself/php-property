@@ -3,13 +3,22 @@
 namespace Mrself\Property;
 
 use ICanBoogie\Inflector;
+use Mrself\DataTransformers\DataTransformers;
+use Mrself\Options\WithOptionsTrait;
 
 class Property
 {
+    use WithOptionsTrait;
+
     /**
      * @var Inflector
      */
     protected $inflector;
+
+    /**
+     * @var DataTransformers
+     */
+    protected $dataTransformers;
 
     public function __construct()
     {
@@ -19,13 +28,25 @@ class Property
     /**
      * @param $source
      * @param $path
+     * @param array $transformers
      * @return mixed
-     * @throws InvalidSourceException
-     * @throws NonValuePathException
-     * @throws NonexistentKeyException
      * @throws EmptyPathException
+     * @throws InvalidSourceException
      */
-    public function get($source, $path)
+    public function get($source, $path, $transformers = [])
+    {
+        $transformers = (array) $transformers;
+        if (is_string($path)) {
+            $parts = explode('|', $path);
+            $path = $parts[0];
+            $transformers = array_merge(array_slice($parts, 1), $transformers);
+        }
+        $value = $this->getValue($source, $path);
+        return $this->dataTransformers
+            ->applyTransformers($value, $transformers);
+    }
+
+    public function getValue($source, $path)
     {
         if ($this->isValuePath($path)) {
             return $this->parseValuePath($path);
@@ -231,8 +252,8 @@ class Property
         return substr($path, 0, strlen('value:')) === 'value:';
     }
 
-    public static function make()
+    protected function onInit()
     {
-        return new static();
+        $this->dataTransformers = DataTransformers::make();
     }
 }
