@@ -3,7 +3,10 @@
 namespace Mrself\Property\Tests;
 
 use ICanBoogie\Inflector;
+use Mrself\Container\Registry\ContainerRegistry;
+use Mrself\Property\Driver\DriverContainer;
 use Mrself\Property\Property;
+use Mrself\Property\PropertyProvider;
 
 trait TestTrait
 {
@@ -12,10 +15,19 @@ trait TestTrait
      */
     protected $property;
 
+    /**
+     * @var DriverContainer
+     */
+    protected $drivers;
+
     protected function setUp()
     {
         parent::setUp();
+        ContainerRegistry::reset();
+        PropertyProvider::make()->register();
         $this->property = Property::make();
+        $this->drivers = ContainerRegistry::get('Mrself\Property')
+            ->get(DriverContainer::class);
     }
 
     protected function _assertHasException(array $props)
