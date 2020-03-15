@@ -201,6 +201,11 @@ class Property
             return $object->$method();
         }
 
+        $method = 'is'. $this->inflector->camelize($key);
+        if (method_exists($object, $method)) {
+            return $object->$method();
+        }
+
         if (property_exists($object, $key) && !$this->isPropertyPublic($object, $key)) {
             throw new NonAccessiblePropertyException($object, $key);
         }
