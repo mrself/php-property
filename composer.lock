@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "929bf8cd27db4c2a71921772eb5f5abe",
+    "content-hash": "89528e063bbfb4276a6efd7e4603a393",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -182,19 +182,20 @@
         },
         {
             "name": "mrself/container",
-            "version": "v1.3.0",
+            "version": "v1.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrself/php-container.git",
-                "reference": "b6777b253dcfea288a0483d86fed0e11f1d3e0cc"
+                "reference": "0b5d2d8f4edb1c1632d3edaa09e0fe300b3d86bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrself/php-container/zipball/b6777b253dcfea288a0483d86fed0e11f1d3e0cc",
-                "reference": "b6777b253dcfea288a0483d86fed0e11f1d3e0cc",
+                "url": "https://api.github.com/repos/mrself/php-container/zipball/0b5d2d8f4edb1c1632d3edaa09e0fe300b3d86bc",
+                "reference": "0b5d2d8f4edb1c1632d3edaa09e0fe300b3d86bc",
                 "shasum": ""
             },
             "require": {
+                "mrself/options": "^2.13.2",
                 "php": "^7.2"
             },
             "require-dev": {
@@ -208,7 +209,7 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2019-02-03T15:07:19+00:00"
+            "time": "2020-03-15T12:22:43+00:00"
         },
         {
             "name": "mrself/data-transformers",
@@ -244,21 +245,21 @@
         },
         {
             "name": "mrself/options",
-            "version": "v2.7.0",
+            "version": "v2.15.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrself/php-options.git",
-                "reference": "0dcbe583ef605451fd0d273d1574ee7c2e45706e"
+                "reference": "745b20342ebb36a467eaf497cc9e2c95580fcd25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrself/php-options/zipball/0dcbe583ef605451fd0d273d1574ee7c2e45706e",
-                "reference": "0dcbe583ef605451fd0d273d1574ee7c2e45706e",
+                "url": "https://api.github.com/repos/mrself/php-options/zipball/745b20342ebb36a467eaf497cc9e2c95580fcd25",
+                "reference": "745b20342ebb36a467eaf497cc9e2c95580fcd25",
                 "shasum": ""
             },
             "require": {
                 "doctrine/annotations": "^1.6",
-                "mrself/container": "1.3.0",
+                "mrself/container": "^1.5.1",
                 "mrself/util": "^1.5.0",
                 "php-di/phpdoc-reader": "^2.1",
                 "symfony/options-resolver": "^4.2"
@@ -274,7 +275,7 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2019-05-25T19:29:46+00:00"
+            "time": "2020-03-14T14:22:48+00:00"
         },
         {
             "name": "mrself/util",
