@@ -3,31 +3,26 @@
 namespace Mrself\Property;
 
 use Mrself\Container\Container;
-use Mrself\Container\ContainerInterface;
-use Mrself\Container\Registry\ContainerRegistry;
+use Mrself\Container\ServiceProvider;
 use Mrself\Property\Driver\DriverContainer;
 
-class PropertyProvider
+class PropertyProvider extends ServiceProvider
 {
-    /**
-     * @var ContainerInterface
-     */
-    protected $container;
-
-    public function register()
-    {
-        $this->container = Container::make();
-        ContainerRegistry::add('Mrself\Property', $this->container);
-        $this->container->set(DriverContainer::class, new DriverContainer());
-    }
-
-    public function boot()
-    {
-
-    }
 
     public static function make()
     {
         return new static();
+    }
+
+    protected function getContainer(): Container
+    {
+        $container = Container::make();
+        $container->set(DriverContainer::class, new DriverContainer());
+        return $container;
+    }
+
+    protected function getNamespace(): string
+    {
+        return 'Mrself\Property';
     }
 }
