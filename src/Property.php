@@ -4,7 +4,9 @@ namespace Mrself\Property;
 
 use ICanBoogie\Inflector;
 use Mrself\DataTransformers\DataTransformers;
+use Mrself\Options\Annotation\Option;
 use Mrself\Options\WithOptionsTrait;
+use Mrself\Property\Driver\DriverContainer;
 
 class Property
 {
@@ -19,6 +21,12 @@ class Property
      * @var DataTransformers
      */
     protected $dataTransformers;
+
+    /**
+     * @Option()
+     * @var DriverContainer
+     */
+    protected $driversContainer;
 
     public function __construct()
     {
@@ -57,7 +65,10 @@ class Property
         }
         $originalPath = $path;
         while (null !== ($key = array_shift($path))) {
-            if (is_object($source)) {
+            $driver = $this->driversContainer->define($source);
+            if ($driver) {
+                $source = $driver->get($source, $key);
+            } elseif (is_object($source)) {
                 $source = $this->objectGet($source, $key);
             } elseif (is_array($source)) {
                 $source = $this->arrayGet($source, $key);
@@ -186,6 +197,11 @@ class Property
     public function objectGet($object, $key)
     {
         $method = 'get'. $this->inflector->camelize($key);
+        if (method_exists($object, $method)) {
+            return $object->$method();
+        }
+
+        $method = 'is'. $this->inflector->camelize($key);
         if (method_exists($object, $method)) {
             return $object->$method();
         }

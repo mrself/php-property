@@ -221,4 +221,16 @@ class GetTest extends TestCase
         $value = $this->property->get($source, 'field');
         $this->assertEquals('value', $value);
     }
+
+    public function testItWorksWithIssuers()
+    {
+        $source = new class {
+            public function isField()
+            {
+                return 'value';
+            }
+        };
+        $value = $this->property->get($source, 'field');
+        $this->assertEquals('value', $value);
+    }
 }
