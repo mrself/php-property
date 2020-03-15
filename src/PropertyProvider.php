@@ -16,7 +16,7 @@ class PropertyProvider
 
     public function register()
     {
-        $this->container = new Container();
+        $this->container = Container::make();
         ContainerRegistry::add('Mrself\Property', $this->container);
         $this->container->set(DriverContainer::class, new DriverContainer());
     }
