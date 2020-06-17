@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c0f587654052369ef6da9201b880b35b",
+    "content-hash": "ae09b3de86b537334a392486e3a30d58",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -130,21 +130,21 @@
         },
         {
             "name": "icanboogie/inflector",
-            "version": "v1.4.4",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ICanBoogie/Inflector.git",
-                "reference": "a875d3c16215327e1a2555592b167ae2591c5c2f"
+                "reference": "9fa7e8fcf7a6ac06257ae77e9aa2ec90925b4327"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ICanBoogie/Inflector/zipball/a875d3c16215327e1a2555592b167ae2591c5c2f",
-                "reference": "a875d3c16215327e1a2555592b167ae2591c5c2f",
+                "url": "https://api.github.com/repos/ICanBoogie/Inflector/zipball/9fa7e8fcf7a6ac06257ae77e9aa2ec90925b4327",
+                "reference": "9fa7e8fcf7a6ac06257ae77e9aa2ec90925b4327",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
-                "php": ">=5.3.4"
+                "php": ">=7.1"
             },
             "type": "library",
             "autoload": {
@@ -178,7 +178,7 @@
                 "singularize",
                 "underscore"
             ],
-            "time": "2017-06-30T13:16:14+00:00"
+            "time": "2019-10-04T09:43:33+00:00"
         },
         {
             "name": "mrself/container",
@@ -279,23 +279,25 @@
         },
         {
             "name": "mrself/util",
-            "version": "v1.6.0",
+            "version": "v1.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrself/php-util.git",
-                "reference": "493d1ee3308196d4fefc487f22a702064d1f32cf"
+                "reference": "99f56d9989f013a085e646a553e30ab1736a77e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrself/php-util/zipball/493d1ee3308196d4fefc487f22a702064d1f32cf",
-                "reference": "493d1ee3308196d4fefc487f22a702064d1f32cf",
+                "url": "https://api.github.com/repos/mrself/php-util/zipball/99f56d9989f013a085e646a553e30ab1736a77e9",
+                "reference": "99f56d9989f013a085e646a553e30ab1736a77e9",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
+                "icanboogie/inflector": "^2.0",
                 "php": "^7.2"
             },
             "require-dev": {
+                "phpbench/phpbench": "@dev",
                 "phpunit/phpunit": "^7.5",
                 "symfony/var-dumper": "^4.2"
             },
@@ -306,7 +308,7 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2019-02-03T06:18:01+00:00"
+            "time": "2020-06-17T05:44:20+00:00"
         },
         {
             "name": "php-di/phpdoc-reader",

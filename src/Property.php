@@ -2,20 +2,15 @@
 
 namespace Mrself\Property;
 
-use ICanBoogie\Inflector;
 use Mrself\DataTransformers\DataTransformers;
 use Mrself\Options\Annotation\Option;
 use Mrself\Options\WithOptionsTrait;
 use Mrself\Property\Driver\DriverContainer;
+use Mrself\Util\StringUtil;
 
 class Property
 {
     use WithOptionsTrait;
-
-    /**
-     * @var Inflector
-     */
-    protected $inflector;
 
     /**
      * @var DataTransformers
@@ -27,11 +22,6 @@ class Property
      * @var DriverContainer
      */
     protected $driversContainer;
-
-    public function __construct()
-    {
-        $this->inflector = Inflector::get();
-    }
 
     /**
      * @param $source
@@ -171,7 +161,7 @@ class Property
 
     protected function objectSet($object, $key, $value)
     {
-        $method = 'set' . $this->inflector->camelize($key);
+        $method = 'set' . StringUtil::camelize($key);
         if (method_exists($object, $method)) {
             $object->$method($value);
         } else {
@@ -196,12 +186,12 @@ class Property
      */
     public function objectGet($object, $key)
     {
-        $method = 'get'. $this->inflector->camelize($key);
+        $method = 'get'. StringUtil::camelize($key);
         if (method_exists($object, $method)) {
             return $object->$method();
         }
 
-        $method = 'is'. $this->inflector->camelize($key);
+        $method = 'is'. StringUtil::camelize($key);
         if (method_exists($object, $method)) {
             return $object->$method();
         }
