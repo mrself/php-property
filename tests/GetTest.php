@@ -207,6 +207,20 @@ class GetTest extends TestCase
         $this->assertEquals('value', $value);
     }
 
+    public function testPathIsCamelCasedWhenGetterIsCalled()
+    {
+        $source = new class {
+            protected $field;
+
+            public function getFieldName()
+            {
+                return 'value';
+            }
+        };
+        $value = $this->property->get($source, 'field_name');
+        $this->assertEquals('value', $value);
+    }
+
     public function testMagicGetCanBeUsed()
     {
         $source = new class {
