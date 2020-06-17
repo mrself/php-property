@@ -9,11 +9,6 @@ use Mrself\Property\Driver\DriverContainer;
 class PropertyProvider extends ServiceProvider
 {
 
-    public static function make()
-    {
-        return new static();
-    }
-
     protected function getContainer(): Container
     {
         $container = Container::make();
