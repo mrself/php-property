@@ -13,7 +13,7 @@
   "require": {
     "php": "^7.2",
     "ext-json": "*",
-    "mrself/data-transformers": "^1.0",
+    "mrself/data-transformers": "^1.1.1",
     "mrself/options": "^2.15.2",
     "mrself/container": "^1.9",
     "mrself/util": "^1.12"
