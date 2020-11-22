@@ -15,8 +15,7 @@ class ProviderTest extends TestCase
         $propertyProvider = PropertyProvider::make();
         $propertyProvider->register();
 
-        $propertyContainer = ContainerRegistry::get('Mrself\Property');
-        $property = $propertyContainer->get(Property::class);
+        $property = $propertyProvider->container()->get(Property::class);
         $this->assertInstanceOf(Property::class, $property);
     }
 }
