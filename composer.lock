@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3c138d1e5fdd0ba6cc74c56c546ac94c",
+    "content-hash": "a3a0134e09433fce5a76212aa0efa5d2",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -219,16 +219,16 @@
         },
         {
             "name": "mrself/container",
-            "version": "v1.11.1",
+            "version": "v1.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrself/php-container.git",
-                "reference": "e4d657b20ec982c46de7853ada67239f3a43fa4d"
+                "reference": "7cccb0a985086b35d8b30adf84aac8b2ae9c9304"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrself/php-container/zipball/e4d657b20ec982c46de7853ada67239f3a43fa4d",
-                "reference": "e4d657b20ec982c46de7853ada67239f3a43fa4d",
+                "url": "https://api.github.com/repos/mrself/php-container/zipball/7cccb0a985086b35d8b30adf84aac8b2ae9c9304",
+                "reference": "7cccb0a985086b35d8b30adf84aac8b2ae9c9304",
                 "shasum": ""
             },
             "require": {
@@ -248,9 +248,9 @@
             "notification-url": "https://packagist.org/downloads/",
             "support": {
                 "issues": "https://github.com/mrself/php-container/issues",
-                "source": "https://github.com/mrself/php-container/tree/v1.11.1"
+                "source": "https://github.com/mrself/php-container/tree/v1.12.0"
             },
-            "time": "2020-11-17T17:42:42+00:00"
+            "time": "2020-11-22T17:20:35+00:00"
         },
         {
             "name": "mrself/data-transformers",

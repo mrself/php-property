@@ -13,6 +13,7 @@ class PropertyProvider extends ServiceProvider
     {
         $container = Container::make();
         $container->set(DriverContainer::class, new DriverContainer());
+        $container->setMaker(Property::class, true);
         return $container;
     }
 

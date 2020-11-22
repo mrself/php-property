@@ -4,11 +4,12 @@ namespace Mrself\Property;
 
 use Mrself\DataTransformers\DataTransformers;
 use Mrself\Options\Annotation\Option;
+use Mrself\Options\OptionableInterface;
 use Mrself\Options\WithOptionsTrait;
 use Mrself\Property\Driver\DriverContainer;
 use Mrself\Util\StringUtil;
 
-class Property
+class Property implements OptionableInterface
 {
     use WithOptionsTrait;
 
