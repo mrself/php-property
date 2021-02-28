@@ -19,6 +19,6 @@ class PropertyProvider extends ServiceProvider
 
     protected function getNamespace(): string
     {
-        return 'Mrself\Property';
+        return 'Mrself\\Property';
     }
 }
